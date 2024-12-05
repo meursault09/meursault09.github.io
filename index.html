@@ -100,8 +100,9 @@
 
     /* Sección de la playlist */
     .playlist-section {
-      display: none; /* Inicialmente oculta */
+      display: flex; /* Mostrar por defecto */
       margin: 50px 0;
+      transition: opacity 2s ease-in-out;
     }
 
     #playlist {
@@ -163,6 +164,7 @@
     /* Estilo para el marco con la foto */
     .hidden-content {
       display: flex;
+      flex-direction: column; /* Cambiado para que la imagen esté abajo */
       align-items: center;
       justify-content: space-between;
       opacity: 0;
@@ -175,6 +177,7 @@
       height: 200px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      margin-top: 20px;
     }
 
     .hidden-content p {
@@ -205,6 +208,23 @@
     @keyframes showStars {
       0% { opacity: 0; }
       100% { opacity: 1; }
+    }
+
+    /* Animación para aurora boreal */
+    @keyframes auroraEffect {
+      0% { background: linear-gradient(135deg, #000000, #44006b, #0033cc, #00ff66); }
+      100% { background: linear-gradient(135deg, #000000, #6600ff, #00ffff, #ffcc00); }
+    }
+
+    .aurora-boreal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      animation: auroraEffect 5s infinite alternate;
+      background-size: 600% 600%;
     }
 
     /* Footer */
@@ -250,8 +270,8 @@
     <div class="click-text">¡HAZ CLICK AQUÍ!</div>
 
     <div class="hidden-content">
-      <img src="https://via.placeholder.com/200" alt="Foto">
       <p>Este es un texto que aparece junto con la foto. ¡Increíble, verdad?</p>
+      <img src="https://via.placeholder.com/200" alt="Foto">
     </div>
 
     <footer>
@@ -264,7 +284,7 @@
     // Función para mostrar la playlist al hacer clic en la flecha
     document.getElementById('arrow').addEventListener('click', () => {
       const playlistContainer = document.getElementById('playlist-container');
-      playlistContainer.style.display = 'block';  // Muestra la playlist
+      playlistContainer.style.display = 'flex';  // Muestra la playlist
       window.scrollTo({ top: playlistContainer.offsetTop, behavior: 'smooth' });  // Desplaza hacia la playlist
     });
 
@@ -287,18 +307,30 @@
       sky.classList.add('starry-sky');
       document.body.appendChild(sky);
 
+      // Mover los elementos hacia arriba y ocultarlos
+      document.querySelector('header').classList.add('move-up');
+      document.querySelector('.playlist-section').classList.add('move-up');
+      document.querySelector('.click-text').classList.add('move-up');
+
       // Hacer el scroll con animación
       window.scrollTo({
         top: document.body.scrollHeight,
         behavior: 'smooth'
       });
 
-      // Mostrar el contenido después de un tiempo
+      // Cambiar el fondo a aurora boreal después de la animación
       setTimeout(() => {
-        const hiddenContent = document.querySelector('.hidden-content');
-        hiddenContent.classList.add('show-content');
-        sky.remove();  // Eliminar el cielo estrellado
-      }, 3000);  // Duración de la animación del cielo
+        const aurora = document.createElement('div');
+        aurora.classList.add('aurora-boreal');
+        document.body.appendChild(aurora);
+
+        // Mostrar el contenido después de un tiempo
+        setTimeout(() => {
+          const hiddenContent = document.querySelector('.hidden-content');
+          hiddenContent.classList.add('show-content');
+          sky.remove();  // Eliminar el cielo estrellado
+        }, 3000);  // Duración de la animación del cielo
+      }, 3000); // Tiempo de aparición del aurora boreal
     });
   </script>
 </body>
