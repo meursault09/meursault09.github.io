@@ -1,337 +1,247 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Diseño Psicodélico</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabanito Psicodélico</title>
+    <style>
+        /* RESET GENERAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Enlace a Google Fonts para fuentes personalizadas -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-  
-  <style>
-    /* Reset global */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #2d2d2d;
+            color: #fff;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 3s ease-in-out;
+        }
 
-    /* Fondo y tipografía */
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #FF00FF, #00FFFF, #FF6600, #FFFF00);
-      background-size: 600% 600%;
-      animation: gradientAnimation 10s ease infinite;
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      overflow: auto; /* Permitir el scroll de la página */
-    }
+        /* Animación del texto de inicio */
+        .intro-text {
+            font-size: 2rem;
+            color: #e6ff00;
+            text-align: center;
+            opacity: 0;
+            animation: introAnimation 4s ease-in-out forwards;
+        }
 
-    /* Animación de gradiente psicodélico */
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        @keyframes introAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+        }
 
-    /* Animación del texto del header como flujo de agua */
-    @keyframes waveEffect {
-      0% { transform: scaleX(1) skewX(0deg); }
-      50% { transform: scaleX(1.5) skewX(-10deg); }
-      100% { transform: scaleX(1) skewX(0deg); }
-    }
+        /* Reproductor de música */
+        .music-player {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            width: 60%;
+            text-align: center;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.5);
+        }
 
-    /* Estilo del encabezado */
-    header {
-      padding: 20px;
-      margin-top: 50px;
-    }
+        .music-player.visible {
+            display: block;
+            animation: playerAnimation 3s ease-in-out;
+        }
 
-    h1 {
-      font-size: 3rem;
-      text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8), 0px 0px 25px rgba(0, 255, 255, 0.6);
-      animation: waveEffect 3s infinite ease-in-out;
-    }
+        @keyframes playerAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 20px;
-      animation: fadeIn 3s forwards;
-    }
+        /* Estilo de botones */
+        .btn {
+            background: #e6ff00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    /* Animación del subtítulo */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
+        .btn:hover {
+            transform: scale(1.1);
+            background: #ff0066;
+        }
 
-    /* Flecha psicodélica */
-    .arrow {
-      margin-top: 30px;
-      font-size: 2rem;
-      cursor: pointer;
-      animation: bounce 1s infinite alternate;
-      transition: transform 0.3s ease;
-    }
+        /* Barra de progreso */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            margin: 15px 0;
+            position: relative;
+        }
 
-    .arrow:hover {
-      transform: scale(1.2);
-    }
+        .progress-bar {
+            height: 100%;
+            background: #ff0066;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.2s;
+        }
 
-    @keyframes bounce {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(10px);
-      }
-    }
+        /* Efecto visual 3D para ecualizador */
+        .visualizer {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.example.com/blurred-audio-vibe.jpg') center center no-repeat;
+            background-size: cover;
+            filter: blur(8px);
+            animation: visualizerEffect 1.5s infinite;
+        }
 
-    /* Sección de la playlist */
-    .playlist-section {
-      display: flex; /* Mostrar por defecto */
-      margin: 50px 0;
-      transition: opacity 2s ease-in-out;
-    }
+        @keyframes visualizerEffect {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
 
-    #playlist {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
+        /* Estilo de texto largo para scroll */
+        .long-text {
+            margin: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            max-width: 80%;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
 
-    #playlist iframe {
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-    }
+        /* Estilo para la imagen y la playlist */
+        .photo-frame {
+            margin-top: 50px;
+            border: 5px solid #e6ff00;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
 
-    /* Animaciones al deslizar */
-    .animation-section {
-      padding: 50px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 20px;
-      margin-bottom: 50px;
-    }
+        .photo-frame img {
+            width: 100%;
+            border-radius: 15px;
+        }
 
-    .anim-content {
-      opacity: 0;
-      transform: translateY(100px);
-      animation: slideUp 1s forwards;
-    }
-
-    @keyframes slideUp {
-      0% {
-        opacity: 0;
-        transform: translateY(100px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ¡HAZ CLICK AQUÍ! */
-    .click-text {
-      font-size: 2rem;
-      margin-top: 30px;
-      cursor: pointer;
-      opacity: 0;
-      animation: fadeInClick 2s forwards;
-    }
-
-    @keyframes fadeInClick {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    /* Estilo para el marco con la foto */
-    .hidden-content {
-      display: flex;
-      flex-direction: column; /* Cambiado para que la imagen esté abajo */
-      align-items: center;
-      justify-content: space-between;
-      opacity: 0;
-      transform: translateX(100%);
-      transition: opacity 1s, transform 1s;
-    }
-
-    .hidden-content img {
-      width: 200px;
-      height: 200px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-      margin-top: 20px;
-    }
-
-    .hidden-content p {
-      font-size: 1.2rem;
-      color: #fff;
-      margin-left: 20px;
-    }
-
-    /* Mostrar el contenido oculto */
-    .show-content {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* Efecto de cielo estrellado psicodélico */
-    .starry-sky {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://www.transparenttextures.com/patterns/starry-night.png') repeat;
-      z-index: 1000;
-      opacity: 0;
-      animation: showStars 3s forwards;
-    }
-
-    @keyframes showStars {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    /* Animación para aurora boreal */
-    @keyframes auroraEffect {
-      0% { background: linear-gradient(135deg, #000000, #44006b, #0033cc, #00ff66); }
-      100% { background: linear-gradient(135deg, #000000, #6600ff, #00ffff, #ffcc00); }
-    }
-
-    .aurora-boreal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      animation: auroraEffect 5s infinite alternate;
-      background-size: 600% 600%;
-    }
-
-    /* Footer */
-    footer {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    footer span {
-      color: #FF6600;
-    }
-
-    /* Estilo para el móvil */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 1rem;
-      }
-      .spotify-login {
-        font-size: 1rem;
-      }
-      .anim-content {
-        font-size: 0.9rem;
-      }
-    }
-
-  </style>
+        .playlist {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>¡Hey!</h1>
-      <h2>Esta página es para ti, espero te guste <3</h2>
-      <div class="arrow" id="arrow">⬇️</div>
-    </header>
 
-    <section id="playlist-container" class="playlist-section">
-      <h2>¿Por qué no escuchamos un poco de música? Toma mi mano y acompáñame, rabanito</h2>
-      <div id="playlist"></div>
-    </section>
-
-    <div class="click-text">¡HAZ CLICK AQUÍ!</div>
-
-    <div class="hidden-content">
-      <p>Este es un texto que aparece junto con la foto. ¡Increíble, verdad?</p>
-      <img src="https://via.placeholder.com/200" alt="Foto">
+    <!-- Texto de bienvenida -->
+    <div class="intro-text">
+        ¿Por qué no escuchamos un poco de música? Toma mi mano y acompáñame rabanito
     </div>
 
-    <footer>
-      <p>Hecho con <span>💙</span> por tu nombre</p>
-    </footer>
-  </div>
+    <!-- Reproductor de música (inicialmente oculto) -->
+    <div class="music-player">
+        <div class="visualizer"></div>
+        <h2>Ahora escuchamos: Flor - Lio Petricor</h2>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <div>
+            <button class="btn" id="playPauseBtn">Play</button>
+            <button class="btn">Skip</button>
+            <button class="btn">Back</button>
+        </div>
+    </div>
 
-  <!-- Enlace a JS para interacciones y animaciones -->
-  <script>
-    // Función para mostrar la playlist al hacer clic en la flecha
-    document.getElementById('arrow').addEventListener('click', () => {
-      const playlistContainer = document.getElementById('playlist-container');
-      playlistContainer.style.display = 'flex';  // Muestra la playlist
-      window.scrollTo({ top: playlistContainer.offsetTop, behavior: 'smooth' });  // Desplaza hacia la playlist
-    });
+    <!-- Texto largo (contenido de ejemplo) -->
+    <div class="long-text">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        </p>
+        <!-- Continúa hasta 500 palabras -->
+    </div>
 
-    // Función para cargar la playlist de Spotify
-    document.addEventListener('DOMContentLoaded', () => {
-      const playlistContainer = document.getElementById('playlist');
-      const iframe = document.createElement('iframe');
-      iframe.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DX5M8uSLo9A4q'; // Reemplaza con tu playlist
-      iframe.width = '300';
-      iframe.height = '380';
-      iframe.frameBorder = '0';
-      iframe.allow = 'encrypted-media';
-      playlistContainer.appendChild(iframe);
-    });
+    <!-- Marco con foto -->
+    <div class="photo-frame">
+        <img src="https://www.example.com/your-image.jpg" alt="Imagen psicodélica">
+    </div>
 
-    // Función para scroll automático con animación
-    document.querySelector('.click-text').addEventListener('click', () => {
-      // Añadir el cielo estrellado psicodélico
-      const sky = document.createElement('div');
-      sky.classList.add('starry-sky');
-      document.body.appendChild(sky);
+    <!-- Playlist de Spotify -->
+    <div class="playlist">
+        <h3>¡Mira! Te hice una playlist</h3>
+        <iframe src="https://open.spotify.com/embed/playlist/your_playlist_id" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
 
-      // Mover los elementos hacia arriba y ocultarlos
-      document.querySelector('header').classList.add('move-up');
-      document.querySelector('.playlist-section').classList.add('move-up');
-      document.querySelector('.click-text').classList.add('move-up');
+    <script>
+        // Reproductor de música (control de progreso)
+        const musicPlayer = document.querySelector('.music-player');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.querySelector('.progress-bar');
+        const audio = new Audio('https://www.youtube.com/watch?v=dQw4w9WgXcQ'); // URL de YouTube como ejemplo
 
-      // Hacer el scroll con animación
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-      });
+        // Cuando el audio esté listo, mostrar el reproductor
+        audio.addEventListener('canplay', () => {
+            musicPlayer.classList.add('visible');
+        });
 
-      // Cambiar el fondo a aurora boreal después de la animación
-      setTimeout(() => {
-        const aurora = document.createElement('div');
-        aurora.classList.add('aurora-boreal');
-        document.body.appendChild(aurora);
+        // Reproducir/pausar música
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = 'Pause';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = 'Play';
+            }
+        });
 
-        // Mostrar el contenido después de un tiempo
-        setTimeout(() => {
-          const hiddenContent = document.querySelector('.hidden-content');
-          hiddenContent.classList.add('show-content');
-          sky.remove();  // Eliminar el cielo estrellado
-        }, 3000);  // Duración de la animación del cielo
-      }, 3000); // Tiempo de aparición del aurora boreal
-    });
-  </script>
+        // Actualizar la barra de progreso
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+        });
+    </script>
+
 </body>
 </html>
