@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Diseño Psicodélico</title>
-  
+
   <!-- Enlace a Google Fonts para fuentes personalizadas -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   
@@ -41,30 +41,61 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* Animación del texto del header como flujo de agua */
+    @keyframes waveEffect {
+      0% { transform: scaleX(1) skewX(0deg); }
+      50% { transform: scaleX(1.5) skewX(-10deg); }
+      100% { transform: scaleX(1) skewX(0deg); }
+    }
+
     /* Estilo del encabezado */
     header {
       padding: 20px;
+      margin-top: 50px;
     }
 
     h1 {
       font-size: 3rem;
       text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8), 0px 0px 25px rgba(0, 255, 255, 0.6);
+      animation: waveEffect 3s infinite ease-in-out;
     }
 
-    /* Botón para ver la playlist */
-    .spotify-login {
-      background-color: #1DB954;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.2rem;
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      animation: fadeIn 3s forwards;
+    }
+
+    /* Animación del subtítulo */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Flecha psicodélica */
+    .arrow {
+      margin-top: 30px;
+      font-size: 2rem;
       cursor: pointer;
+      animation: bounce 1s infinite alternate;
       transition: transform 0.3s ease;
     }
 
-    .spotify-login:hover {
-      transform: scale(1.1);
+    .arrow:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(10px);
+      }
     }
 
     /* Sección de la playlist */
@@ -110,6 +141,53 @@
       }
     }
 
+    /* ¡HAZ CLICK AQUÍ! */
+    .click-text {
+      font-size: 2rem;
+      margin-top: 30px;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeInClick 2s forwards;
+    }
+
+    @keyframes fadeInClick {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Estilo para el marco con la foto */
+    .hidden-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: opacity 1s, transform 1s;
+    }
+
+    .hidden-content img {
+      width: 200px;
+      height: 200px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+
+    .hidden-content p {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-left: 20px;
+    }
+
+    /* Mostrar el contenido oculto */
+    .show-content {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     /* Footer */
     footer {
       font-size: 1.2rem;
@@ -123,6 +201,9 @@
     @media (max-width: 768px) {
       h1 {
         font-size: 2rem;
+      }
+      h2 {
+        font-size: 1rem;
       }
       .spotify-login {
         font-size: 1rem;
@@ -157,8 +238,9 @@
 <body>
   <div id="app">
     <header>
-      <h1>Diseño Psicodélico</h1>
-      <button class="spotify-login">Ver Playlist</button>
+      <h1>¡Hey!</h1>
+      <h2>Esta página es para ti, espero te guste <3</h2>
+      <div class="arrow">⬇️</div>
     </header>
 
     <section id="playlist-container" class="playlist-section">
@@ -172,6 +254,13 @@
         <p>¡Bienvenido a la experiencia psicodélica! Desliza para ver más contenido interactivo.</p>
       </div>
     </section>
+
+    <div class="click-text">¡HAZ CLICK AQUÍ!</div>
+
+    <div class="hidden-content">
+      <img src="https://via.placeholder.com/200" alt="Foto">
+      <p>Este es un texto que aparece junto con la foto. ¡Increíble, verdad?</p>
+    </div>
 
     <footer>
       <p>Hecho con <span>💙</span> por tu nombre</p>
@@ -202,7 +291,7 @@
       content.style.animation = 'slideUp 1s forwards';
     });
 
-    // Función para crear la estela psicodélica
+    // Estela psicodélica del mouse
     const createMouseTrail = (e) => {
       const trail = document.createElement('div');
       trail.classList.add('trail');
@@ -227,6 +316,12 @@
 
     // Escuchar el movimiento del mouse
     document.addEventListener('mousemove', createMouseTrail);
+
+    // Mostrar el contenido oculto al hacer clic en el texto
+    document.querySelector('.click-text').addEventListener('click', () => {
+      const hiddenContent = document.querySelector('.hidden-content');
+      hiddenContent.classList.add('show-content');
+    });
   </script>
 </body>
 </html>
