@@ -30,8 +30,8 @@
       justify-content: space-between;
       align-items: center;
       text-align: center;
-      overflow: hidden; /* Prevenir el desbordamiento de partículas */
       position: relative;
+      overflow: auto; /* Permitir el scroll de la página */
     }
 
     /* Animación de gradiente psicodélico */
@@ -214,6 +214,17 @@
       }
     }
 
+    /* Contenedor para las partículas */
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 9999; /* Mantener sobre el contenido */
+    }
+
     /* Estilo de la estela del mouse */
     .trail {
       position: absolute;
@@ -268,6 +279,9 @@
     </footer>
   </div>
 
+  <!-- Contenedor para las partículas -->
+  <div class="particles-container" id="particles"></div>
+
   <!-- Enlace a JS para interacciones y animaciones -->
   <script>
     // Función para mostrar la playlist al hacer clic en la flecha
@@ -309,8 +323,9 @@
       trail.style.left = `${e.pageX - trail.offsetWidth / 2}px`;
       trail.style.top = `${e.pageY - trail.offsetHeight / 2}px`;
 
-      // Agregar la estela al body
-      document.body.appendChild(trail);
+      // Agregar la estela al contenedor de partículas
+      const particlesContainer = document.getElementById('particles');
+      particlesContainer.appendChild(trail);
 
       // Eliminar la estela después de la animación
       setTimeout(() => {
