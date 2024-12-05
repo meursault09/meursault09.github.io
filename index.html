@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Diseño Psicodélico</title>
+  
+  <!-- Enlace a CSS para estilos -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Enlace a Google Fonts para fuentes personalizadas -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Diseño Psicodélico</h1>
+      <button class="spotify-login">Ver Playlist</button>
+    </header>
+
+    <section id="playlist-container" class="playlist-section">
+      <h2>Mi Playlist Psicodélica</h2>
+      <div id="playlist"></div>
+    </section>
+
+    <section id="animations" class="animation-section">
+      <h2>Desliza para ver más</h2>
+      <div class="anim-content">
+        <p>¡Bienvenido a la experiencia psicodélica! Desliza para ver más contenido interactivo.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Hecho con <span>💙</span> por tu nombre</p>
+    </footer>
+  </div>
+
+  <!-- Enlace a JS para interacciones y animaciones -->
+  <script>
+    // Función para mostrar la playlist al hacer clic en el botón
+    document.querySelector('.spotify-login').addEventListener('click', () => {
+      const playlistContainer = document.getElementById('playlist');
+      
+      // Verificamos si la playlist ya ha sido cargada
+      if (playlistContainer.innerHTML === '') {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DX5M8uSLo9A4q'; // Reemplaza por el ID de tu playlist
+        iframe.width = '300';
+        iframe.height = '380';
+        iframe.frameBorder = '0';
+        iframe.allow = 'encrypted-media';
+        playlistContainer.appendChild(iframe);
+      }
+    });
+
+    // Animación de deslizamiento al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+      const content = document.querySelector('.anim-content');
+      content.style.animation = 'slideUp 1s forwards';
+    });
+  </script>
+
+  <style>
+    /* Reset global */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Fondo y tipografía */
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #FF00FF, #00FFFF, #FF6600, #FFFF00);
+      background-size: 600% 600%;
+      animation: gradientAnimation 10s ease infinite;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Animación de gradiente psicodélico */
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Estilo del encabezado */
+    header {
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8), 0px 0px 25px rgba(0, 255, 255, 0.6);
+    }
+
+    /* Botón para ver la playlist */
+    .spotify-login {
+      background-color: #1DB954;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .spotify-login:hover {
+      transform: scale(1.1);
+    }
+
+    /* Sección de la playlist */
+    .playlist-section {
+      margin: 50px 0;
+    }
+
+    #playlist {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    #playlist iframe {
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    /* Animaciones al deslizar */
+    .animation-section {
+      padding: 50px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      margin-bottom: 50px;
+    }
+
+    .anim-content {
+      opacity: 0;
+      transform: translateY(100px);
+      animation: slideUp 1s forwards;
+    }
+
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    footer {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    footer span {
+      color: #FF6600;
+    }
+
+    /* Estilo para el móvil */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .spotify-login {
+        font-size: 1rem;
+      }
+      .anim-content {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</body>
+</html>
