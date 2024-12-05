@@ -6,61 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Diseño Psicodélico</title>
   
-  <!-- Enlace a CSS para estilos -->
-  <link rel="stylesheet" href="styles.css">
-
   <!-- Enlace a Google Fonts para fuentes personalizadas -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div id="app">
-    <header>
-      <h1>Diseño Psicodélico</h1>
-      <button class="spotify-login">Ver Playlist</button>
-    </header>
-
-    <section id="playlist-container" class="playlist-section">
-      <h2>Mi Playlist Psicodélica</h2>
-      <div id="playlist"></div>
-    </section>
-
-    <section id="animations" class="animation-section">
-      <h2>Desliza para ver más</h2>
-      <div class="anim-content">
-        <p>¡Bienvenido a la experiencia psicodélica! Desliza para ver más contenido interactivo.</p>
-      </div>
-    </section>
-
-    <footer>
-      <p>Hecho con <span>💙</span> por tu nombre</p>
-    </footer>
-  </div>
-
-  <!-- Enlace a JS para interacciones y animaciones -->
-  <script>
-    // Función para mostrar la playlist al hacer clic en el botón
-    document.querySelector('.spotify-login').addEventListener('click', () => {
-      const playlistContainer = document.getElementById('playlist');
-      
-      // Verificamos si la playlist ya ha sido cargada
-      if (playlistContainer.innerHTML === '') {
-        const iframe = document.createElement('iframe');
-        iframe.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DX5M8uSLo9A4q'; // Reemplaza por el ID de tu playlist
-        iframe.width = '300';
-        iframe.height = '380';
-        iframe.frameBorder = '0';
-        iframe.allow = 'encrypted-media';
-        playlistContainer.appendChild(iframe);
-      }
-    });
-
-    // Animación de deslizamiento al cargar
-    document.addEventListener('DOMContentLoaded', () => {
-      const content = document.querySelector('.anim-content');
-      content.style.animation = 'slideUp 1s forwards';
-    });
-  </script>
-
+  
   <style>
     /* Reset global */
     * {
@@ -82,6 +30,8 @@
       justify-content: space-between;
       align-items: center;
       text-align: center;
+      overflow: hidden; /* Prevenir el desbordamiento de partículas */
+      position: relative;
     }
 
     /* Animación de gradiente psicodélico */
@@ -181,6 +131,102 @@
         font-size: 0.9rem;
       }
     }
+
+    /* Estilo de la estela del mouse */
+    .trail {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: trailEffect 0.5s ease-out;
+      opacity: 1;
+    }
+
+    @keyframes trailEffect {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+
   </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Diseño Psicodélico</h1>
+      <button class="spotify-login">Ver Playlist</button>
+    </header>
+
+    <section id="playlist-container" class="playlist-section">
+      <h2>Mi Playlist Psicodélica</h2>
+      <div id="playlist"></div>
+    </section>
+
+    <section id="animations" class="animation-section">
+      <h2>Desliza para ver más</h2>
+      <div class="anim-content">
+        <p>¡Bienvenido a la experiencia psicodélica! Desliza para ver más contenido interactivo.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Hecho con <span>💙</span> por tu nombre</p>
+    </footer>
+  </div>
+
+  <!-- Enlace a JS para interacciones y animaciones -->
+  <script>
+    // Función para mostrar la playlist al hacer clic en el botón
+    document.querySelector('.spotify-login').addEventListener('click', () => {
+      const playlistContainer = document.getElementById('playlist');
+      
+      // Verificamos si la playlist ya ha sido cargada
+      if (playlistContainer.innerHTML === '') {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DX5M8uSLo9A4q'; // Reemplaza por el ID de tu playlist
+        iframe.width = '300';
+        iframe.height = '380';
+        iframe.frameBorder = '0';
+        iframe.allow = 'encrypted-media';
+        playlistContainer.appendChild(iframe);
+      }
+    });
+
+    // Animación de deslizamiento al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+      const content = document.querySelector('.anim-content');
+      content.style.animation = 'slideUp 1s forwards';
+    });
+
+    // Función para crear la estela psicodélica
+    const createMouseTrail = (e) => {
+      const trail = document.createElement('div');
+      trail.classList.add('trail');
+
+      // Establecer el tamaño y color de la estela
+      trail.style.width = `${Math.random() * 20 + 10}px`;  // Tamaño aleatorio entre 10px y 30px
+      trail.style.height = trail.style.width; // Hacerlo redondo
+      trail.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`; // Color psicodélico aleatorio
+
+      // Colocar la estela en la posición del mouse
+      trail.style.left = `${e.pageX - trail.offsetWidth / 2}px`;
+      trail.style.top = `${e.pageY - trail.offsetHeight / 2}px`;
+
+      // Agregar la estela al body
+      document.body.appendChild(trail);
+
+      // Eliminar la estela después de la animación
+      setTimeout(() => {
+        trail.remove();
+      }, 500);  // El mismo tiempo que la animación
+    };
+
+    // Escuchar el movimiento del mouse
+    document.addEventListener('mousemove', createMouseTrail);
+  </script>
 </body>
 </html>
