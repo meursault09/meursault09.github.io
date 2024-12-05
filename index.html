@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Psicodélica</title>
+    <title>Página Psicodélica con Spotify</title>
     <style>
         /* RESET GENERAL */
         * {
@@ -99,10 +99,11 @@
             max-width: 600px;
         }
 
-        .audio-container audio {
+        .audio-container iframe {
             width: 100%;
+            border: none;
+            height: 50px;
             border-radius: 5px;
-            background-color: #333;
         }
 
         .audio-container .play-button {
@@ -119,6 +120,13 @@
         .audio-container .play-button:hover {
             background-color: #ff0066;
             transform: scale(1.1);
+        }
+
+        .song-info {
+            margin-left: 20px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
         }
 
         /* Efectos de desplazamiento */
@@ -148,7 +156,7 @@
     <!-- Sección 2: Texto largo -->
     <div class="section">
         <h1>El Camino del Descubrimiento</h1>
-        <p class="fade-scroll">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        <p class="fade-scroll">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt...</p>
     </div>
 
     <!-- Sección 3: Imagen psicodélica -->
@@ -157,35 +165,47 @@
         <img src="https://via.placeholder.com/800x600.png?text=Imagen+Psicodélica" alt="Imagen Psicodélica" class="fade-scroll">
     </div>
 
-    <!-- Sección 4: Texto con llamada a la acción -->
-    <div class="section">
-        <h1>¡Únete al Movimiento!</h1>
-        <p class="fade-scroll">La aventura no termina aquí. Sigue explorando y descubre más sobre este mundo alternativo lleno de colores, sonidos y sensaciones. Únete a nosotros y comparte esta experiencia con tus amigos. ¡El viaje apenas comienza!</p>
-    </div>
-
-    <!-- Reproductor de música -->
+    <!-- Reproductor de música de Spotify -->
     <div class="audio-container">
-        <audio id="audio" autoplay loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-            Tu navegador no soporta el audio.
-        </audio>
-        <button class="play-button" onclick="toggleAudio()">Pause</button>
+        <!-- Aquí pondremos el iframe de la playlist pública de Spotify -->
+        <iframe id="spotifyIframe" src="https://open.spotify.com/playlist/3RXTb5Xm2ygF2P2SaARHqO?si=edab85a7109f4508" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <button class="play-button" id="playPauseBtn">Play</button>
+        <div class="song-info" id="songName">Cargando canción...</div>
     </div>
 
     <script>
-        // Control de reproducción de audio
-        const audio = document.getElementById('audio');
-        const playButton = document.querySelector('.play-button');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const spotifyIframe = document.getElementById('spotifyIframe');
+        const songNameElement = document.getElementById('songName');
 
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                playButton.textContent = 'Pause';
+        let isPlaying = false;
+
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                // Cuando está en reproducción, pausamos el iframe (la música).
+                spotifyIframe.contentWindow.postMessage({ type: 'pause' }, '*');
+                playPauseBtn.textContent = 'Play';
             } else {
-                audio.pause();
-                playButton.textContent = 'Play';
+                // Cuando está pausado, reproducimos el iframe (la música).
+                spotifyIframe.contentWindow.postMessage({ type: 'play' }, '*');
+                playPauseBtn.textContent = 'Pause';
             }
+            isPlaying = !isPlaying;
+        });
+
+        // Para obtener el nombre de la canción actual, necesitarías usar el API de Spotify,
+        // pero ya que estamos usando un iframe de Spotify, no tenemos acceso directo.
+        // Sin embargo, puedes actualizar el nombre de la canción manualmente con el siguiente código:
+        // Este código es solo un ejemplo, ya que no se puede acceder a la canción directamente sin la API de Spotify.
+
+        // Función para actualizar el nombre de la canción (esto es un ejemplo de cómo podrías hacerlo)
+        function updateSongName(song) {
+            songNameElement.textContent = song || 'Cargando canción...';
         }
+
+        // Aquí podrías hacer una llamada a un API o recibir la canción actual en función de tu integración
+        // Por ejemplo:
+        updateSongName('Canción Ejemplo');
     </script>
 
 </body>
