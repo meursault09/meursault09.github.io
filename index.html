@@ -3,115 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Psicodélico</title>
+    <title>Recuerdos Psicodélicos</title>
     <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
+        /* RESET GENERAL */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo global */
+        body {
+            font-family: 'Arial', sans-serif;
             overflow-x: hidden;
-        }
-        .header {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(90deg, #ff00cc, #3333ff, #33ff33);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-        }
-        .header h1 {
-            font-size: 4em;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 0;
             margin: 0;
-            color: white;
         }
+
+        /* Fondo psicodélico animado */
+        .psychedelic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 0, 153, 1) 0%, rgba(0, 255, 255, 1) 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite;
+            z-index: -1;
+        }
+
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .profile-pic {
+
+        /* Sección principal de la página */
+        .section {
+            padding: 100px 50px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Títulos de las secciones */
+        h1 {
+            font-size: 4rem;
+            font-family: 'Courier New', Courier, monospace;
+            color: #ff66cc;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: fadeInUp 2s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Texto de las secciones */
+        p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            max-width: 80%;
+            margin: 20px auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 2s ease-out 0.5s forwards;
+        }
+
+        .section img {
+            max-width: 90%;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 1s forwards;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Estilo de la imagen de perfil */
+        .profile-container {
             width: 200px;
             height: 200px;
+            margin: 30px auto;
             border-radius: 50%;
-            border: 5px solid white;
-            margin: 0 auto;
-            display: block;
-            background: linear-gradient(45deg, #ff6ec7, #734ae8, #33c3ff, #33ffbd);
-            background-size: 200% 200%;
-            animation: picAnimation 8s linear infinite;
+            overflow: hidden;
+            border: 8px solid #ff66cc;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.7);
+            animation: profileAnimation 2s ease-out forwards;
         }
-        @keyframes picAnimation {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
+
+        @keyframes profileAnimation {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .bio {
-            text-align: center;
-            margin: 20px;
-            font-size: 1.2em;
+
+        .profile-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .content-section {
-            padding: 50px;
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 30px 10px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s;
+
+        /* Reproductor de música oculto */
+        iframe {
+            display: none;
         }
-        .content-section:hover {
-            transform: scale(1.05);
+
+        /* Efectos de desplazamiento */
+        .fade-scroll {
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeScroll 2s ease-out forwards;
         }
-        .content-section h2 {
-            text-align: center;
-            font-size: 2em;
-            background: -webkit-linear-gradient(45deg, #ff6ec7, #33ffbd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p {
-            line-height: 1.8;
-            padding: 0 20px;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #222;
-            color: #aaa;
+
+        @keyframes fadeScroll {
+            0% { opacity: 0; transform: translateY(100px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Mi Perfil Psicodélico</h1>
-    </div>
-    <div class="profile-pic"></div>
-    <div class="bio">
-        <p>¡Hola! Bienvenido a mi espacio. Aquí comparto mis pensamientos, pasiones y cosas favoritas. ¡Explora y disfruta!</p>
+
+    <!-- Fondo psicodélico -->
+    <div class="psychedelic-background"></div>
+
+    <!-- Sección 1: Introducción -->
+    <div class="section">
+        <h1>Recuerdos Psicodélicos</h1>
+        <p class="fade-scroll">La vida está llena de momentos especiales, momentos que compartimos con una persona única. Cada risa, cada paseo bajo el sol, cada mirada que lo dice todo. Estos recuerdos se fusionan en una realidad llena de colores, sonidos y sensaciones que jamás olvidaremos. Un viaje compartido que perdura en nuestro ser, más allá del tiempo y del espacio.</p>
+        <div class="profile-container">
+            <img src="https://via.placeholder.com/200" alt="Foto de perfil">
+        </div>
     </div>
 
-    <div class="content-section">
-        <h2>Sobre Mí</h2>
-        <p>Soy un apasionado por la música, el arte digital, y todo lo que tiene que ver con la psicodelia. Me encanta explorar nuevas ideas y expresarme a través de la creatividad.</p>
+    <!-- Sección 2: Primer recuerdo -->
+    <div class="section">
+        <h1>El Primer Viaje</h1>
+        <p class="fade-scroll">Recuerdo ese primer paseo por la playa, el aire fresco, el sonido de las olas rompiendo en la orilla y nuestra conversación que fluía como si el tiempo no existiera. Con cada paso, el sol se iba poniendo, creando un espectáculo de colores que parecía diseñado solo para nosotros. Fue el inicio de un viaje sin fin.</p>
+        <img src="https://via.placeholder.com/800x600.png?text=Recuerdo+de+la+playa" alt="Recuerdo de la playa" class="fade-scroll">
     </div>
 
-    <div class="content-section">
-        <h2>Mis Intereses</h2>
-        <p>Escuchar música, explorar mundos virtuales, pintar, escribir historias cortas y conectar con personas que compartan mi misma vibra.</p>
+    <!-- Sección 3: El viaje en la ciudad -->
+    <div class="section">
+        <h1>Explorando la Ciudad</h1>
+        <p class="fade-scroll">Cada rincón de la ciudad se convirtió en un lugar lleno de magia. Caminamos entre luces de neón, rodeados de edificios altos y colores que parecían bailarnos en los ojos. El sonido de la música se colaba en cada esquina, y nosotros, tomados de la mano, explorábamos sin prisa. Cada esquina era una historia, cada calle una melodía que nos hacía sonreír.</p>
+        <img src="https://via.placeholder.com/800x600.png?text=Recuerdo+de+la+ciudad" alt="Recuerdo de la ciudad" class="fade-scroll">
     </div>
 
-    <div class="content-section">
-        <h2>Mis Proyectos</h2>
-        <p>Actualmente estoy trabajando en varios proyectos de arte digital. También planeo lanzar un blog donde hablaré sobre experiencias psicodélicas y cómo influyen en la creatividad.</p>
+    <!-- Sección 4: La última aventura -->
+    <div class="section">
+        <h1>La Última Aventura</h1>
+        <p class="fade-scroll">Esa última noche en que todo parecía encajar perfectamente. Una fogata encendida, risas y anécdotas compartidas bajo el manto estrellado del cielo. Sentir que estábamos juntos en ese instante, sin preocupaciones, solo el momento. Sabíamos que era la despedida, pero también sabíamos que los recuerdos permanecerían, intensos como el primer día.</p>
+        <img src="https://via.placeholder.com/800x600.png?text=Recuerdo+de+la+fogata" alt="Recuerdo de la fogata" class="fade-scroll">
     </div>
 
-    <div class="content-section">
-        <h2>Galería</h2>
-        <p>Pronto compartiré una colección de mis obras. ¡Mantente atento!</p>
-    </div>
+    <!-- Reproductor de música oculto (YouTube) -->
+    <iframe id="youtubeVideo" src="https://www.youtube.com/embed/am0TaKGmED4&?autoplay=1&mute=1&loop=1&playlist=am0TaKGmED4&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-    <div class="footer">
-        <p>© 2024 Mi Perfil Psicodélico. Todos los derechos reservados.</p>
-    </div>
+    <script>
+        // Reproductor de YouTube oculto ya está listo para la reproducción automática
+        // Si deseas usar otra playlist, cambia la URL del iframe a una playlist de tu preferencia
+    </script>
+
 </body>
 </html>
 
