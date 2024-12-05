@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rabanito Psicodélico</title>
+    <title>Página Psicodélica</title>
     <style>
         /* RESET GENERAL */
         * {
@@ -12,24 +12,27 @@
             box-sizing: border-box;
         }
 
+        /* Estilo global */
         body {
             font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
             overflow-x: hidden;
-            height: 100vh;
+            height: 100%;
+            background: #111;
+            color: #fff;
+            padding: 0;
             margin: 0;
         }
 
         /* Fondo psicodélico animado */
         .psychedelic-background {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff0066, #e6ff00, #00ffcc, #9b00ff);
-            background-size: 300% 300%;
-            animation: gradientAnimation 10s ease infinite;
+            background: linear-gradient(45deg, #ff0066, #00ffcc, #9b00ff, #ff9900);
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite;
             z-index: -1;
         }
 
@@ -39,208 +42,150 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Sección 1 - Texto y música de fondo */
-        .intro-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.5rem;
+        /* Estilo de las secciones */
+        .section {
+            padding: 100px 50px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section h1 {
+            font-size: 4rem;
+            font-weight: bold;
             color: #e6ff00;
-            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
             opacity: 0;
-            animation: fadeIn 3s ease-out forwards;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-
-        /* Sección 2 - Reproductor de música con fondo de ecualizador */
-        .music-player {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 15px;
-            width: 60%;
-            box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.5);
-            z-index: 1;
-            text-align: center;
-            animation: playerSlideIn 1s ease-out forwards;
-        }
-
-        @keyframes playerSlideIn {
-            0% { opacity: 0; transform: translateY(100px); }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        .music-player.visible {
-            display: block;
+        .section p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
         }
 
-        .progress-container {
+        .section img {
+            max-width: 80%;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        /* Estilo del reproductor de música */
+        .audio-container {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .audio-container audio {
             width: 100%;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.3);
             border-radius: 5px;
-            margin: 15px 0;
-            position: relative;
+            background-color: #333;
         }
 
-        .progress-bar {
-            height: 100%;
-            background: #ff0066;
-            width: 0%;
-            border-radius: 5px;
-            transition: width 0.2s;
-        }
-
-        .visualizer {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://via.placeholder.com/100x100.png') center center no-repeat;
-            background-size: cover;
-            animation: visualizerEffect 1.5s infinite;
-        }
-
-        @keyframes visualizerEffect {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .btn {
-            background: #e6ff00;
-            color: black;
+        .audio-container .play-button {
+            background-color: #e6ff00;
             border: none;
             padding: 10px 20px;
-            font-size: 1.2rem;
-            margin: 5px;
-            border-radius: 10px;
+            font-size: 1rem;
+            margin-left: 15px;
             cursor: pointer;
+            border-radius: 5px;
             transition: all 0.3s ease;
         }
 
-        .btn:hover {
+        .audio-container .play-button:hover {
+            background-color: #ff0066;
             transform: scale(1.1);
-            background: #ff0066;
         }
 
-        /* Sección 3 - Texto largo, imagen y playlist */
-        .long-text {
-            margin: 50px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            max-width: 80%;
-            line-height: 1.6;
-            font-size: 1rem;
+        /* Efectos de desplazamiento */
+        .fade-scroll {
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeScroll 1.5s ease-out forwards;
         }
 
-        .photo-frame {
-            margin-top: 50px;
-            border: 5px solid #e6ff00;
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            border-radius: 15px;
-        }
-
-        .playlist {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 1.2rem;
+        @keyframes fadeScroll {
+            0% { opacity: 0; transform: translateY(100px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fondo animado psicodélico -->
+    <!-- Fondo psicodélico -->
     <div class="psychedelic-background"></div>
 
-    <!-- Sección 1 - Texto de bienvenida -->
-    <div class="intro-text">
-        ¿Por qué no escuchamos un poco de música? Toma mi mano y acompáñame rabanito
+    <!-- Sección 1: Introducción -->
+    <div class="section">
+        <h1>Bienvenidos al Viaje Psicodélico</h1>
+        <p class="fade-scroll">Déjate llevar por un viaje sensorial lleno de colores vibrantes, sonidos envolventes y texturas psicodélicas. A medida que navegues por esta página, serás parte de una experiencia única y mística que desafía la realidad.</p>
+    </div>
+
+    <!-- Sección 2: Texto largo -->
+    <div class="section">
+        <h1>El Camino del Descubrimiento</h1>
+        <p class="fade-scroll">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+    </div>
+
+    <!-- Sección 3: Imagen psicodélica -->
+    <div class="section">
+        <h1>La Imágenes del Alma</h1>
+        <img src="https://via.placeholder.com/800x600.png?text=Imagen+Psicodélica" alt="Imagen Psicodélica" class="fade-scroll">
+    </div>
+
+    <!-- Sección 4: Texto con llamada a la acción -->
+    <div class="section">
+        <h1>¡Únete al Movimiento!</h1>
+        <p class="fade-scroll">La aventura no termina aquí. Sigue explorando y descubre más sobre este mundo alternativo lleno de colores, sonidos y sensaciones. Únete a nosotros y comparte esta experiencia con tus amigos. ¡El viaje apenas comienza!</p>
     </div>
 
     <!-- Reproductor de música -->
-    <div class="music-player">
-        <div class="visualizer"></div>
-        <h2>Ahora escuchamos: Flor - Lio Petricor</h2>
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
-        <div>
-            <button class="btn" id="playPauseBtn">Play</button>
-            <button class="btn">Skip</button>
-            <button class="btn">Back</button>
-        </div>
-    </div>
-
-    <!-- Sección 3 - Texto largo, imagen y playlist -->
-    <div class="long-text">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt...
-            <!-- Continúa hasta 500 palabras -->
-        </p>
-    </div>
-
-    <div class="photo-frame">
-        <img src="https://via.placeholder.com/300x300" alt="Imagen psicodélica">
-    </div>
-
-    <div class="playlist">
-        <h3>¡Mira! Te hice una playlist</h3>
-        <iframe src="https://open.spotify.com/embed/playlist/your_playlist_id" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    <div class="audio-container">
+        <audio id="audio" autoplay loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+            Tu navegador no soporta el audio.
+        </audio>
+        <button class="play-button" onclick="toggleAudio()">Pause</button>
     </div>
 
     <script>
-        // Reproductor de música
-        const musicPlayer = document.querySelector('.music-player');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const progressBar = document.querySelector('.progress-bar');
-        const audio = new Audio('https://www.youtube.com/watch?v=8wtuSxB9f6g'); // YouTube Link for background audio
+        // Control de reproducción de audio
+        const audio = document.getElementById('audio');
+        const playButton = document.querySelector('.play-button');
 
-        // Cuando el audio esté listo, mostrar el reproductor
-        audio.addEventListener('canplay', () => {
-            musicPlayer.classList.add('visible');
-        });
-
-        // Reproducir/pausar música
-        playPauseBtn.addEventListener('click', () => {
+        function toggleAudio() {
             if (audio.paused) {
                 audio.play();
-                playPauseBtn.textContent = 'Pause';
+                playButton.textContent = 'Pause';
             } else {
                 audio.pause();
-                playPauseBtn.textContent = 'Play';
+                playButton.textContent = 'Play';
             }
-        });
-
-        // Actualizar la barra de progreso
-        audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progress}%`;
-        });
-
-        // Mostrar texto después de la animación inicial
-        window.onload = () => {
-            setTimeout(() => {
-                document.querySelector('.intro-text').style.display = 'none';
-            }, 4000); // Desaparece después de 4 segundos
-        };
+        }
     </script>
 
 </body>
