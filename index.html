@@ -100,6 +100,7 @@
 
     /* Sección de la playlist */
     .playlist-section {
+      display: none; /* Inicialmente oculta */
       margin: 50px 0;
     }
 
@@ -240,7 +241,7 @@
     <header>
       <h1>¡Hey!</h1>
       <h2>Esta página es para ti, espero te guste <3</h2>
-      <div class="arrow">⬇️</div>
+      <div class="arrow" id="arrow">⬇️</div>
     </header>
 
     <section id="playlist-container" class="playlist-section">
@@ -269,20 +270,23 @@
 
   <!-- Enlace a JS para interacciones y animaciones -->
   <script>
-    // Función para mostrar la playlist al hacer clic en el botón
-    document.querySelector('.spotify-login').addEventListener('click', () => {
+    // Función para mostrar la playlist al hacer clic en la flecha
+    document.getElementById('arrow').addEventListener('click', () => {
+      const playlistContainer = document.getElementById('playlist-container');
+      playlistContainer.style.display = 'block';  // Muestra la playlist
+      window.scrollTo({ top: playlistContainer.offsetTop, behavior: 'smooth' });  // Desplaza hacia la playlist
+    });
+
+    // Función para cargar la playlist de Spotify
+    document.addEventListener('DOMContentLoaded', () => {
       const playlistContainer = document.getElementById('playlist');
-      
-      // Verificamos si la playlist ya ha sido cargada
-      if (playlistContainer.innerHTML === '') {
-        const iframe = document.createElement('iframe');
-        iframe.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DX5M8uSLo9A4q'; // Reemplaza por el ID de tu playlist
-        iframe.width = '300';
-        iframe.height = '380';
-        iframe.frameBorder = '0';
-        iframe.allow = 'encrypted-media';
-        playlistContainer.appendChild(iframe);
-      }
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DX5M8uSLo9A4q'; // Reemplaza con tu playlist
+      iframe.width = '300';
+      iframe.height = '380';
+      iframe.frameBorder = '0';
+      iframe.allow = 'encrypted-media';
+      playlistContainer.appendChild(iframe);
     });
 
     // Animación de deslizamiento al cargar
