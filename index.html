@@ -3,173 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuerdos Psicodélicos</title>
+    <title>Animaciones 3D</title>
     <style>
-        /* RESET GENERAL */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Estilo global */
         body {
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-            background: #1a1a1a;
-            color: #fff;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Fondo psicodélico animado */
-        .psychedelic-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 153, 1) 0%, rgba(0, 255, 255, 1) 100%);
-            background-size: 400% 400%;
-            animation: gradientAnimation 12s ease infinite;
-            z-index: -1;
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Sección principal de la página */
-        .section {
-            padding: 100px 50px;
-            text-align: center;
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-        }
-
-        /* Títulos de las secciones */
-        h1 {
-            font-size: 4rem;
-            font-family: 'Courier New', Courier, monospace;
-            color: #ff66cc;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: fadeInUp 2s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Texto de las secciones */
-        p {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            max-width: 80%;
-            margin: 20px auto;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 2s ease-out 0.5s forwards;
-        }
-
-        .section img {
-            max-width: 90%;
-            margin-top: 30px;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out 1s forwards;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-        }
-
-        /* Estilo de la imagen de perfil */
-        .profile-container {
-            width: 200px;
-            height: 200px;
-            margin: 30px auto;
-            border-radius: 50%;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6e45e2, #88d3ce);
             overflow: hidden;
-            border: 8px solid #ff66cc;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.7);
-            animation: profileAnimation 2s ease-out forwards;
         }
-
-        @keyframes profileAnimation {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .cubo {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: girar 5s infinite linear;
         }
-
-        .profile-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .cara {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #fff;
         }
+        .cara:nth-child(1) { transform: rotateY(0deg) translateZ(50px); }
+        .cara:nth-child(2) { transform: rotateY(90deg) translateZ(50px); }
+        .cara:nth-child(3) { transform: rotateY(180deg) translateZ(50px); }
+        .cara:nth-child(4) { transform: rotateY(-90deg) translateZ(50px); }
+        .cara:nth-child(5) { transform: rotateX(90deg) translateZ(50px); }
+        .cara:nth-child(6) { transform: rotateX(-90deg) translateZ(50px); }
 
-        /* Reproductor de música oculto */
-        iframe {
-            display: none;
-        }
-
-        /* Efectos de desplazamiento */
-        .fade-scroll {
-            opacity: 0;
-            transform: translateY(100px);
-            animation: fadeScroll 2s ease-out forwards;
-        }
-
-        @keyframes fadeScroll {
-            0% { opacity: 0; transform: translateY(100px); }
-            100% { opacity: 1; transform: translateY(0); }
+        @keyframes girar {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
         }
     </style>
 </head>
 <body>
-
-    <!-- Fondo psicodélico -->
-    <div class="psychedelic-background"></div>
-
-    <!-- Sección 1: Introducción -->
-    <div class="section">
-        <h1>Recuerdos Psicodélicos</h1>
-        <p class="fade-scroll">La vida está llena de momentos especiales, momentos que compartimos con una persona única. Cada risa, cada paseo bajo el sol, cada mirada que lo dice todo. Estos recuerdos se fusionan en una realidad llena de colores, sonidos y sensaciones que jamás olvidaremos. Un viaje compartido que perdura en nuestro ser, más allá del tiempo y del espacio.</p>
-        <div class="profile-container">
-            <img src="https://via.placeholder.com/200" alt="Foto de perfil">
-        </div>
+    <div class="cubo">
+        <div class="cara"></div>
+        <div class="cara"></div>
+        <div class="cara"></div>
+        <div class="cara"></div>
+        <div class="cara"></div>
+        <div class="cara"></div>
     </div>
-
-    <!-- Sección 2: Primer recuerdo -->
-    <div class="section">
-        <h1>El Primer Viaje</h1>
-        <p class="fade-scroll">Recuerdo ese primer paseo por la playa, el aire fresco, el sonido de las olas rompiendo en la orilla y nuestra conversación que fluía como si el tiempo no existiera. Con cada paso, el sol se iba poniendo, creando un espectáculo de colores que parecía diseñado solo para nosotros. Fue el inicio de un viaje sin fin.</p>
-        <img src="https://via.placeholder.com/800x600.png?text=Recuerdo+de+la+playa" alt="Recuerdo de la playa" class="fade-scroll">
-    </div>
-
-    <!-- Sección 3: El viaje en la ciudad -->
-    <div class="section">
-        <h1>Explorando la Ciudad</h1>
-        <p class="fade-scroll">Cada rincón de la ciudad se convirtió en un lugar lleno de magia. Caminamos entre luces de neón, rodeados de edificios altos y colores que parecían bailarnos en los ojos. El sonido de la música se colaba en cada esquina, y nosotros, tomados de la mano, explorábamos sin prisa. Cada esquina era una historia, cada calle una melodía que nos hacía sonreír.</p>
-        <img src="https://via.placeholder.com/800x600.png?text=Recuerdo+de+la+ciudad" alt="Recuerdo de la ciudad" class="fade-scroll">
-    </div>
-
-    <!-- Sección 4: La última aventura -->
-    <div class="section">
-        <h1>La Última Aventura</h1>
-        <p class="fade-scroll">Esa última noche en que todo parecía encajar perfectamente. Una fogata encendida, risas y anécdotas compartidas bajo el manto estrellado del cielo. Sentir que estábamos juntos en ese instante, sin preocupaciones, solo el momento. Sabíamos que era la despedida, pero también sabíamos que los recuerdos permanecerían, intensos como el primer día.</p>
-        <img src="https://via.placeholder.com/800x600.png?text=Recuerdo+de+la+fogata" alt="Recuerdo de la fogata" class="fade-scroll">
-    </div>
-
-    <!-- Reproductor de música oculto (YouTube) -->
-    <iframe id="youtubeVideo" src="https://www.youtube.com/embed/PLn71CHZCoVkDnXu8VpfrFK3gEoHjNesll&?autoplay=1&mute=1&loop=1&playlist=PLn71CHZCoVkDnXu8VpfrFK3gEoHjNesll" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-    <script>
-        // Reproductor de YouTube oculto ya está listo para la reproducción automática
-        // Si deseas usar otra playlist, cambia la URL del iframe a una playlist de tu preferencia
-    </script>
-
 </body>
 </html>
-
