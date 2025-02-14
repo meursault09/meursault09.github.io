@@ -1,92 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heart to Flower Transformation</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-    }
-    .heart {
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, white 60%, rgba(255, 255, 255, 0.6) 100%);
-      position: relative;
-      transform: rotate(-45deg);
-      animation: pulse 1.5s infinite ease-in-out;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-      cursor: pointer;
-    }
-    .heart::before, .heart::after {
-      content: '';
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background: inherit;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -50px;
-      left: 0;
-    }
-    .heart::after {
-      top: 0;
-      left: 50px;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1) rotate(-45deg); }
-      50% { transform: scale(1.1) rotate(-45deg); }
-    }
-    .scene {
-      position: relative;
-      width: 400px;
-      height: 500px;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-    .flower {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, white 70%, rgba(255, 255, 255, 0.5) 100%);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-      animation: bloom 4s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes bloom {
-      0% { transform: scale(0); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi-corazón</title>
 </head>
-<body>
-  <div class="heart" onclick="transformHeart()"></div>
-  <div class="scene" id="scene">
-    <div class="flower" style="top: 50px; left: 50px; width: 30px; height: 30px;"></div>
-    <div class="flower" style="top: 100px; left: 100px; width: 40px; height: 40px;"></div>
-    <div class="flower" style="top: 150px; left: 70px; width: 35px; height: 35px;"></div>
-    <div class="flower" style="top: 200px; left: 120px; width: 50px; height: 50px;"></div>
-    <div class="flower" style="top: 250px; left: 90px; width: 45px; height: 45px;"></div>
-  </div>
-
-  <script>
-    function transformHeart() {
-      const heart = document.querySelector('.heart');
-      const scene = document.getElementById('scene');
-      heart.style.transition = 'transform 1s ease-in-out, opacity 1s ease-in-out';
-      heart.style.transform = 'scale(0)';
-      heart.style.opacity = '0';
-      setTimeout(() => {
-        scene.style.opacity = '1';
-      }, 1000);
+<style>
+    body {
+        margin: 0;   
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000000;
     }
-  </script>
+
+    .hearth {
+        height: 150px;
+        width: 150px;
+        background-color: red;
+        position: relative;
+        transform: rotate(45deg);
+        box-shadow: -20px 20px 150px #f20404;
+        animation: palpitar 0.5s linear infinite alternate;
+    }
+    .contenido {
+        position: fixed;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    h1 {
+        color: white;}
+    h2 {
+        color: white;
+    }
+
+@keyframes palpitar {
+    0%{transform: rotate(45deg) scale(1.10);}
+    80%{transform: rotate(45deg) scale(1.0);}
+    100%{transform: rotate(45deg) scale(0.8);}
+}
+
+    .hearth::before {
+        content: "";
+        position: absolute;
+        height: 150px;
+        width: 150px;
+        background-color: red;
+        right: 50%;
+        border-radius: 50%;
+        box-shadow: 20px 20px 150px #f20404;
+
+    }
+
+    .hearth::after {
+        content: "";
+        position: absolute;
+        height: 150px;
+        width: 150px;
+        background-color: red;
+        top: -50%;
+        border-radius: 50%;
+        box-shadow: 20px 20px 150px #f20404;
+        
+    }
+</style>
+<body>
+    <div class="hearth"></div>
+    <div class="contenido"><h1> te amo </h1><h2>......</h2></div>
 </body>
 </html>
