@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gypsophila and Lilies Animation</title>
+  <title>Heart to Flower Transformation</title>
   <style>
     body {
       margin: 0;
@@ -13,60 +13,80 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+    .heart {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, white 60%, rgba(255, 255, 255, 0.6) 100%);
+      position: relative;
+      transform: rotate(-45deg);
+      animation: pulse 1.5s infinite ease-in-out;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: 50px;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) rotate(-45deg); }
+      50% { transform: scale(1.1) rotate(-45deg); }
     }
     .scene {
       position: relative;
-      width: 300px;
-      height: 400px;
+      width: 400px;
+      height: 500px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
     .flower {
       position: absolute;
       border-radius: 50%;
-      animation: float 6s ease-in-out infinite;
+      background: radial-gradient(circle, white 70%, rgba(255, 255, 255, 0.5) 100%);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+      animation: bloom 4s ease-out forwards;
+      opacity: 0;
     }
-    .gypsophila {
-      width: 10px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
-    }
-    .lily {
-      width: 20px;
-      height: 40px;
-      background: purple;
-      transform: rotate(45deg);
-      box-shadow: 0 0 20px rgba(255, 255, 0, 0.6);
-    }
-    @keyframes float {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.05); }
-      100% { transform: translateY(0) scale(1); }
+    @keyframes bloom {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="scene">
-    <!-- Gypsophila Flowers -->
-    <div class="flower gypsophila" style="top: 50px; left: 30px;"></div>
-    <div class="flower gypsophila" style="top: 80px; left: 70px;"></div>
-    <div class="flower gypsophila" style="top: 120px; left: 50px;"></div>
-    <div class="flower gypsophila" style="top: 160px; left: 90px;"></div>
-    <div class="flower gypsophila" style="top: 200px; left: 40px;"></div>
-    
-    <!-- Lily Flowers -->
-    <div class="flower lily" style="top: 60px; left: 150px;"></div>
-    <div class="flower lily" style="top: 120px; left: 180px;"></div>
-    <div class="flower lily" style="top: 180px; left: 130px;"></div>
+  <div class="heart" onclick="transformHeart()"></div>
+  <div class="scene" id="scene">
+    <div class="flower" style="top: 50px; left: 50px; width: 30px; height: 30px;"></div>
+    <div class="flower" style="top: 100px; left: 100px; width: 40px; height: 40px;"></div>
+    <div class="flower" style="top: 150px; left: 70px; width: 35px; height: 35px;"></div>
+    <div class="flower" style="top: 200px; left: 120px; width: 50px; height: 50px;"></div>
+    <div class="flower" style="top: 250px; left: 90px; width: 45px; height: 45px;"></div>
   </div>
 
   <script>
-    // Optional: Add dynamic sparkle effect
-    setInterval(() => {
-      const flowers = document.querySelectorAll('.flower');
-      flowers.forEach(flower => {
-        flower.style.boxShadow = `0 0 ${Math.random() * 20 + 10}px rgba(255, 255, 0, 0.8)`;
-      });
-    }, 1000);
+    function transformHeart() {
+      const heart = document.querySelector('.heart');
+      const scene = document.getElementById('scene');
+      heart.style.transition = 'transform 1s ease-in-out, opacity 1s ease-in-out';
+      heart.style.transform = 'scale(0)';
+      heart.style.opacity = '0';
+      setTimeout(() => {
+        scene.style.opacity = '1';
+      }, 1000);
+    }
   </script>
 </body>
 </html>
