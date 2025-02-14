@@ -1,55 +1,72 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animaciones 3D</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #6e45e2, #88d3ce);
-            overflow: hidden;
-        }
-        .cubo {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: girar 5s infinite linear;
-        }
-        .cara {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid #fff;
-        }
-        .cara:nth-child(1) { transform: rotateY(0deg) translateZ(50px); }
-        .cara:nth-child(2) { transform: rotateY(90deg) translateZ(50px); }
-        .cara:nth-child(3) { transform: rotateY(180deg) translateZ(50px); }
-        .cara:nth-child(4) { transform: rotateY(-90deg) translateZ(50px); }
-        .cara:nth-child(5) { transform: rotateX(90deg) translateZ(50px); }
-        .cara:nth-child(6) { transform: rotateX(-90deg) translateZ(50px); }
-
-        @keyframes girar {
-            from { transform: rotateX(0deg) rotateY(0deg); }
-            to { transform: rotateX(360deg) rotateY(360deg); }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gypsophila and Lilies Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .scene {
+      position: relative;
+      width: 300px;
+      height: 400px;
+    }
+    .flower {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    .gypsophila {
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+    }
+    .lily {
+      width: 20px;
+      height: 40px;
+      background: purple;
+      transform: rotate(45deg);
+      box-shadow: 0 0 20px rgba(255, 255, 0, 0.6);
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+      100% { transform: translateY(0) scale(1); }
+    }
+  </style>
 </head>
 <body>
-    <div class="cubo">
-        <div class="cara"></div>
-        <div class="cara"></div>
-        <div class="cara"></div>
-        <div class="cara"></div>
-        <div class="cara"></div>
-        <div class="cara"></div>
-    </div>
+  <div class="scene">
+    <!-- Gypsophila Flowers -->
+    <div class="flower gypsophila" style="top: 50px; left: 30px;"></div>
+    <div class="flower gypsophila" style="top: 80px; left: 70px;"></div>
+    <div class="flower gypsophila" style="top: 120px; left: 50px;"></div>
+    <div class="flower gypsophila" style="top: 160px; left: 90px;"></div>
+    <div class="flower gypsophila" style="top: 200px; left: 40px;"></div>
+    
+    <!-- Lily Flowers -->
+    <div class="flower lily" style="top: 60px; left: 150px;"></div>
+    <div class="flower lily" style="top: 120px; left: 180px;"></div>
+    <div class="flower lily" style="top: 180px; left: 130px;"></div>
+  </div>
+
+  <script>
+    // Optional: Add dynamic sparkle effect
+    setInterval(() => {
+      const flowers = document.querySelectorAll('.flower');
+      flowers.forEach(flower => {
+        flower.style.boxShadow = `0 0 ${Math.random() * 20 + 10}px rgba(255, 255, 0, 0.8)`;
+      });
+    }, 1000);
+  </script>
 </body>
 </html>
